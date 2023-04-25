@@ -5,7 +5,9 @@ class Solution:
         
         for i, v in enumerate(nums):
             right_sum = total_sum - left_sum - v
+            
             if right_sum == left_sum:
                 return i
             left_sum += v
+            
         return -1
