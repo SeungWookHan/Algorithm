@@ -1,13 +1,16 @@
 class Solution:
     def isIsomorphic(self, s: str, t: str) -> bool:
-        zipdict = dict()
+        hash = dict()
+        
         for a, b in zip(s, t):
-            if zipdict.get(a) is None and b in zipdict.values():
-                return False
-            zipdict[a] = b
-        compare = ""
+            if hash.get(a) is None and b not in hash.values():
+                hash[a] = b
+        
+        check = ""
         for i in s:
-            compare += zipdict[i]
-        if compare == t:
-            return True
-        return False
+            if hash.get(i) is None:
+                return False
+            check += hash.get(i)
+        return check == t
+        
+        
