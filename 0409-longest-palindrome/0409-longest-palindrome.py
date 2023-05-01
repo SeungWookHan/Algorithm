@@ -1,22 +1,17 @@
+from collections import Counter
+
 class Solution:
     def longestPalindrome(self, s: str) -> int:
-        freq = {}
-        for c in s:
-            if c in freq:
-                freq[c] += 1
+        if len(s) == 1:
+            return 1
+        
+        result = 0
+        f = 0
+        
+        for _, v in Counter(s).items():
+            if v % 2 == 0:
+                result += v
             else:
-                freq[c] = 1
-        
-        length = 0
-        center = False
-        
-        for count in freq.values():
-            if count % 2 == 0:
-                length += count
-            else:
-                length += count - 1
-                center = True
-        
-        if center:
-            length += 1
-        return length
+                result += v-1
+                f = 1
+        return result + f
