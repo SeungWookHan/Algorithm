@@ -9,22 +9,19 @@ from collections import deque
 
 class Solution:
     def levelOrder(self, root: Optional[TreeNode]) -> List[List[int]]:
-        queue, result = deque(), []
         if not root:
             return []
+        result = []
+        queue = deque([root])
         
-        queue.append(root)
-        
-        while len(queue) != 0:
+        while queue:
             level = []
             for _ in range(len(queue)):
-                parent = queue.popleft()
-                level.append(parent.val)
-                
-                if parent.left:
-                    queue.append(parent.left)
-                if parent.right:
-                    queue.append(parent.right)
+                curr = queue.popleft()
+                level.append(curr.val)
+                if curr.left:
+                    queue.append(curr.left)
+                if curr.right:
+                    queue.append(curr.right)
             result.append(level)
         return result
-            
