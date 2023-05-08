@@ -1,15 +1,24 @@
 class Solution:
     def numIslands(self, grid: List[List[str]]) -> int:
-        row, col = len(grid), len(grid[0])
+        def dfs(x, y):
+            if x < 0 or x > n-1 or y < 0 or y > m-1:
+                return False
+            if grid[x][y] == "1":
+                grid[x][y] = "0"
+                
+                dfs(x-1, y)
+                dfs(x+1, y)
+                dfs(x, y-1)
+                dfs(x, y+1)
+                return True
+            return False
+                
         
-        def dfs(i, j):
-            if 0 <= i < row and 0 <= j < col and grid[i][j] == '1':
-                grid[i][j] = '0'
-                dfs(i, j - 1)
-                dfs(i, j + 1)
-                dfs(i - 1, j)
-                dfs(i + 1, j)
-                return 1
-            return 0
-        count = sum(dfs(i, j) for i in range(row) for j in range(col))
-        return count
+        n, m = len(grid), len(grid[0])
+        answer = 0
+        
+        for i in range(n):
+            for j in range(m):
+                if dfs(i, j) == True:
+                    answer += 1
+        return answer
