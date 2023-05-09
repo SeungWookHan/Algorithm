@@ -1,11 +1,10 @@
 class Solution:
     def twoSum(self, nums: List[int], target: int) -> List[int]:
-        hash_table = {} # value: index
+        hash_map = {} # value: idx
         
-        for idx, value in enumerate(nums):
-            rest = target - value
-            if rest in hash_table:
-                return [hash_table[rest], idx]
-            else:
-                hash_table[value] = idx
+        for idx, v in enumerate(nums):
+            rest = target - v
+            if rest in hash_map:
+                return [hash_map[rest], idx]
+            hash_map[v] = idx
             
