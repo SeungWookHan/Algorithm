@@ -1,23 +1,24 @@
+from collections import Counter
 class Solution:
     def findAnagrams(self, s: str, p: str) -> List[int]:
-        if len(p) > len(s):
-            return []
+        answer = []
+        m, n = len(s), len(p)
+        if m < n:
+            return answer
+        s_counter = Counter(s[:n-1])
+        p_counter = Counter(p)
         
-        res, charP, charS = [], [0]*26, [0]*26
-        
-        for c in p:
-            charP[ord(c)-ord('a')] += 1
-        
-        for i in range(0, len(s) - len(p) + 1):
-            if i == 0: 
-                for j in range(i, i + len(p)):
-                    charS[ord(s[j]) - ord('a')] += 1       
-            else: 
-                charS[ord(s[i+len(p)-1]) - ord('a')] += 1
-                
-            if charS == charP:
-                res.append(i)
+        end=0 
+        for end in range(n-1, m):
+            start = end - (n-1)
             
-            charS[ord(s[i]) - ord('a')] -= 1
+            s_counter[s[end]] += 1
+            if s_counter == p_counter:
+                answer.append(start)
             
-        return res
+            s_counter[s[start]] -= 1
+            if s_counter[s[start]] == 0:
+                del s_counter[s[start]]
+        return answer
+        
+        
